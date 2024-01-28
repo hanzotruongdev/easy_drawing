@@ -1,4 +1,5 @@
 import 'package:ar_drawing/config/assets_path.dart';
+import 'package:ar_drawing/screens/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -105,7 +106,11 @@ class AppPopups {
                 left: 0,
                 right: 0,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      c, MaterialPageRoute(builder: (context) => CameraScreen(draw: da))
+                    );
+                  },
                   child: Container(
                     width: double.infinity,
                     height: 240.w,
