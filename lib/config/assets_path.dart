@@ -15,8 +15,11 @@ class AppImagePath {
   static const btnUpload = '$_folderPath/btn_upload.png';
   static const bgCat = '$_folderPath/bg_cat.png';
   static const bgCatItem = '$_folderPath/bg_cat_item.png';
+  static const bgCatItemLarge = '$_folderPath/bg_cat_item_large.png';
   static const iconStarActive = '$_folderPath/icon_star_active.png';
   static const iconStarInactive = '$_folderPath/icon_star_inactive.png';
+  static const btnBack = '$_folderPath/btn_back.png';
+  static const contentHelp = '$_folderPath/content_help.png';
 }
 
 class AppSvgPath {
@@ -29,6 +32,7 @@ class AppSvgPath {
   ];
   static const logo = '$_folderPath/logo.svg';
   static const btnHelp = '$_folderPath/btn_help.svg';
+  static const bgPopupHelp = '$_folderPath/bg_popup_help.svg';
 }
 
 class DrawAsset {

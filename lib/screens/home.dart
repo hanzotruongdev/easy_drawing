@@ -1,4 +1,6 @@
+import 'package:ar_drawing/components/popup.dart';
 import 'package:ar_drawing/config/assets_path.dart';
+import 'package:ar_drawing/screens/cat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -40,7 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   SizedBox(width: 96.w),
                   SvgPicture.asset(AppSvgPath.logo, width: 823.w, height: 230.w),
-                  SvgPicture.asset(AppSvgPath.btnHelp, width: 96.w, height: 96.w),
+                  GestureDetector(
+                    onTap: () => AppPopups.showPopupHelp(context),
+                    child: SvgPicture.asset(AppSvgPath.btnHelp, width: 96.w, height: 96.w),
+                  ),
                 ],
               ),
             ),
@@ -105,7 +110,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {
-                debugPrint('Tapped on the transparent area!');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CatScreen(name: name)),
+                );
               },
               child: Container(
                 width: 249.w,
@@ -123,49 +131,52 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildCatItem(DrawAsset da) {
-    return Container(
-      width: 390.w,
-      height: 474.w,
-      child: Stack(
-        children: [
-          // bg
-          Positioned.fill(child: Image.asset(AppImagePath.bgCatItem)),
-          // image
-          Positioned(
-            top: 16.w,
-            left: 16.w,
-            child: Image.asset(
-              da.path,
-              height: 360.w,
-              width: 360.w,
+    return InkWell(
+      onTap: () => AppPopups.showPopupItemDetail(context, da),
+      child: Container(
+        width: 390.w,
+        height: 474.w,
+        child: Stack(
+          children: [
+            // bg
+            Positioned.fill(child: Image.asset(AppImagePath.bgCatItem)),
+            // image
+            Positioned(
+              top: 16.w,
+              left: 16.w,
+              child: Image.asset(
+                da.path,
+                height: 360.w,
+                width: 360.w,
+              ),
             ),
-          ),
-          //star
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 30.w,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ...List.filled(da.star, 1).map((e) {
-                  return Image.asset(
-                    AppImagePath.iconStarActive,
-                    width: 48.w,
-                    height: 48.w,
-                  );
-                }).toList(),
-                ...List.filled(5 - da.star, 1).map((e) {
-                  return Image.asset(
-                    AppImagePath.iconStarInactive,
-                    width: 48.w,
-                    height: 48.w,
-                  );
-                }).toList(),
-              ],
-            ),
-          )
-        ],
+            //star
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 30.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ...List.filled(da.star, 1).map((e) {
+                    return Image.asset(
+                      AppImagePath.iconStarActive,
+                      width: 48.w,
+                      height: 48.w,
+                    );
+                  }).toList(),
+                  ...List.filled(5 - da.star, 1).map((e) {
+                    return Image.asset(
+                      AppImagePath.iconStarInactive,
+                      width: 48.w,
+                      height: 48.w,
+                    );
+                  }).toList(),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
