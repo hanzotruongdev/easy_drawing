@@ -1,6 +1,8 @@
 import 'package:ar_drawing/config/assets_path.dart';
+import 'package:ar_drawing/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -11,6 +13,7 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen> {
   int step = 0;
+  bool freeTrial = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +37,18 @@ class _IntroScreenState extends State<IntroScreen> {
             child: Column(
               children: [
                 _buildCloseBtn(),
+                SizedBox(height: 48.w),
                 _buildIntroImage(),
-                _buildContinueButton(),
+                Expanded(
+                  child: _buildIntroText(),
+                ),
+                Column(
+                  children: [
+                    _buildContinueButton(),
+                    SizedBox(height: 48.w),
+                    _buildLink(),
+                  ],
+                )
               ],
             )));
   }
@@ -103,6 +116,11 @@ class _IntroScreenState extends State<IntroScreen> {
               setState(() {
                 step += 1;
               });
+            } else {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+              );
             }
           },
           child: Image.asset(
@@ -112,6 +130,111 @@ class _IntroScreenState extends State<IntroScreen> {
           ),
         )
       ],
+    );
+  }
+
+  _buildIntroText() {
+    if (step < 3) return SvgPicture.asset(AppSvgPath.listIntroTexts[step]);
+    return _buildIntroText3();
+  }
+
+  _buildIntroText3() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        SvgPicture.asset(
+          AppSvgPath.listIntroTexts[3],
+          height: 283.w,
+        ),
+        Column(
+          children: [
+            Text(
+              'Just \$6,13/week',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 72.sp,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            Text(
+              'Auto-renewable. Cancel anytime.',
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.5),
+                fontSize: 48.sp,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+        Container(
+          height: 192.w,
+          padding: EdgeInsets.symmetric(horizontal: 48.w),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 1),
+            borderRadius: BorderRadius.circular(96.w),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Not sure yet?',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 48.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    'Enable free trial',
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.5),
+                      fontSize: 48.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    freeTrial = !freeTrial;
+                  });
+                },
+                child: Image.asset(
+                  freeTrial ? AppImagePath.btnSwitchOn : AppImagePath.btnSwitchOff,
+                  height: 96.w,
+                  width: 192.w,
+                ),
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  _buildLink() {
+    return SafeArea(
+      top: false,
+      child: (step < 3)
+          ? SizedBox(height: 72.w)
+          : GestureDetector(
+              onTap: () {},
+              child: Text(
+                'Restore Purchase',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 48.sp,
+                  fontWeight: FontWeight.w400,
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.white,
+                ),
+              ),
+            ),
     );
   }
 }

@@ -10,4 +10,58 @@ class AppImagePath {
   ];
   static const iconSelectedGradient = '$_folderPath/icon_selected_gradient.png';
   static const btnContinue = '$_folderPath/btn_continue.png';
+  static const btnSwitchOff = '$_folderPath/btn_switch_off.png';
+  static const btnSwitchOn = '$_folderPath/btn_switch_on.png';
+  static const btnUpload = '$_folderPath/btn_upload.png';
+  static const bgCat = '$_folderPath/bg_cat.png';
+  static const bgCatItem = '$_folderPath/bg_cat_item.png';
+  static const iconStarActive = '$_folderPath/icon_star_active.png';
+  static const iconStarInactive = '$_folderPath/icon_star_inactive.png';
 }
+
+class AppSvgPath {
+  static const _folderPath = 'assets/svgs';
+  static const listIntroTexts = [
+    '$_folderPath/text-intro1.svg',
+    '$_folderPath/text-intro2.svg',
+    '$_folderPath/text-intro3.svg',
+    '$_folderPath/text-intro4.svg',
+  ];
+  static const logo = '$_folderPath/logo.svg';
+  static const btnHelp = '$_folderPath/btn_help.svg';
+}
+
+class DrawAsset {
+  static const _folderPath = 'assets/samples';
+  final String name;
+  final int star;
+
+  get path => '$_folderPath/$name';
+  DrawAsset({required this.name, this.star = 3});
+}
+
+Map<String, List> appSamplePath = {
+  "Anime": [
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+  ],
+  "Anatomy": [
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+  ],
+  "Objects": [
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+    DrawAsset(name: 'sample1.png'),
+  ],
+};
