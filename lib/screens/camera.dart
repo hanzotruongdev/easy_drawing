@@ -103,7 +103,8 @@ class _CameraScreenState extends State<CameraScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      await controller?.setFlashMode(flash ? FlashMode.off : FlashMode.torch);
                       setState(() {
                         flash = !flash;
                       });
