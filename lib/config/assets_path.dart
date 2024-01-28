@@ -31,16 +31,31 @@ class AppSvgPath {
     '$_folderPath/text-intro4.svg',
   ];
   static const logo = '$_folderPath/logo.svg';
-  static const btnHelp = '$_folderPath/btn_help.svg';
+
   static const bgPopupHelp = '$_folderPath/bg_popup_help.svg';
+
   static const iconMove = '$_folderPath/icon_move.svg';
+  static const iconZoomIn = '$_folderPath/icon_zoom_in.svg';
+  static const iconZoomOut = '$_folderPath/icon_zoom_out.svg';
+  static const iconAdjust = '$_folderPath/icon_adjust.svg';
   static const iconFlash = '$_folderPath/icon_flash.svg';
+  static const iconOpacityDecrease = '$_folderPath/icon_opacity_decrease.svg';
+  static const iconOpacityIncrease = '$_folderPath/icon_opacity_increase.svg';
+
+  static const btnHelp = '$_folderPath/btn_help.svg';
   static const btnMenuOpacity = '$_folderPath/btn_menu_opacity.svg';
   static const btnMenuCamera = '$_folderPath/btn_menu_camera.svg';
   static const btnMenuZoom = '$_folderPath/btn_menu_zoom.svg';
-  static const iconOpacityDecrease = '$_folderPath/icon_opacity_decrease.svg';
-  static const iconOpacityIncrease = '$_folderPath/icon_opacity_increase.svg';
+  static const btnRecording = '$_folderPath/btn_recording.svg';
+  static const btnCapture = '$_folderPath/btn_capture.svg';
+
   static const btnSubMenuOpacity = '$_folderPath/btn_sub_menu_opacity.svg';
+  static const btnSubMenuCamera = '$_folderPath/btn_sub_menu_camera.svg';
+  static const btnSubMenuCameraActive = '$_folderPath/btn_sub_menu_camera_active.svg';
+  static const btnSubMenuVideo = '$_folderPath/btn_sub_menu_video.svg';
+  static const btnSubMenuVideoActive = '$_folderPath/btn_sub_menu_video_active.svg';
+  static const btnSubMenuZoomPicture = '$_folderPath/btn_sub_menu_zoom_picture.svg';
+  static const btnSubMenuZoomPictureActive = '$_folderPath/btn_sub_menu_zoom_picture_active.svg';
 }
 
 class DrawAsset {

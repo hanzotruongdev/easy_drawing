@@ -29,6 +29,10 @@ enum Menus {
   get activeMenuOpacity => value == Menus.opacity.value;
   get activeMenuCamera => value == Menus.picture.value || value == Menus.video.value;
   get activeMenuZoom => value == Menus.zoomImage.value || value == Menus.zoomCamera.value;
+  get activeSubMenuPicture => value == Menus.picture.value;
+  get activeSubMenuVideo => value == Menus.video.value;
+  get activeSubMenuZoomImage => value == Menus.zoomImage.value;
+  get activeSubMenuZoomCamera => value == Menus.zoomCamera.value;
 }
 
 class _CameraScreenState extends State<CameraScreen> {
@@ -40,6 +44,12 @@ class _CameraScreenState extends State<CameraScreen> {
   bool flash = false;
   Menus activeMenu = Menus.none;
   double opacityValue = 0.5;
+  double zoomImageValue = 0.5;
+  double zoomCameraValue = 0;
+  bool recording = false;
+  double zoomMinLevel = 0;
+  double zoomMaxLevel = 0;
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +58,9 @@ class _CameraScreenState extends State<CameraScreen> {
       if (!mounted) {
         return;
       }
+      controller!.getMaxZoomLevel().then((value) => zoomMaxLevel = value);
+      controller!.getMinZoomLevel().then((value) => zoomMinLevel = value);
+
       setState(() {});
     }).catchError((Object e) {
       if (e is CameraException) {
@@ -209,12 +222,31 @@ class _CameraScreenState extends State<CameraScreen> {
               ),
             ),
 
+          // opacity sub menu
           if (activeMenu.activeMenuOpacity)
             Positioned(
               right: 0,
               left: 0,
               bottom: 360.w,
               child: _buildOpacityMenu(),
+            ),
+
+          // camera sub menu
+          if (activeMenu.activeMenuCamera)
+            Positioned(
+              top: 60.w,
+              left: 0,
+              right: 0,
+              child: _buildCameraMenu(),
+            ),
+
+          // zoom sub menu
+          if (activeMenu.activeMenuZoom)
+            Positioned(
+              top: 0.w,
+              left: 0,
+              right: 0,
+              child: _buildZoomMenu(),
             ),
 
           // main menus
@@ -241,7 +273,11 @@ class _CameraScreenState extends State<CameraScreen> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      activeMenu = activeMenu.activeMenuCamera ? Menus.none : Menus.picture;
+                      activeMenu = activeMenu.activeMenuCamera
+                          ? Menus.none
+                          : recording
+                              ? Menus.video
+                              : Menus.picture;
                     });
                   },
                   child: SvgPicture.asset(
@@ -306,5 +342,190 @@ class _CameraScreenState extends State<CameraScreen> {
         ],
       )
     ]);
+  }
+
+  _buildCameraMenu() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 196.w),
+      child: Stack(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              //
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    activeMenu = Menus.picture;
+                  });
+                },
+                child: SvgPicture.asset(
+                  activeMenu.activeSubMenuPicture ? AppSvgPath.btnSubMenuCameraActive : AppSvgPath.btnSubMenuCamera,
+                  width: 179.w,
+                  height: 48.w,
+                ),
+              ),
+              SizedBox(height: 138.w),
+
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    activeMenu = Menus.video;
+                  });
+                },
+                child: SvgPicture.asset(
+                  activeMenu.activeSubMenuVideo ? AppSvgPath.btnSubMenuVideoActive : AppSvgPath.btnSubMenuVideo,
+                  height: 48.w,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  if (activeMenu.activeSubMenuPicture) {
+                    // take a pick ture
+                    controller!.takePicture();
+                  } else {
+                    // start/ stop recording
+                    if (recording) {
+                      await controller?.stopVideoRecording();
+                      recording = false;
+                    } else {
+                      await controller?.startVideoRecording();
+                      recording = true;
+                    }
+                  }
+
+                  setState(() {});
+                },
+                child: SvgPicture.asset(
+                  recording ? AppSvgPath.btnRecording : AppSvgPath.btnCapture,
+                  width: 138.w,
+                  height: 138.w,
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  _buildZoomMenu() {
+    return Container(
+      height: 237.w,
+      padding: EdgeInsets.symmetric(horizontal: 123.w),
+      child: Stack(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 138.w),
+              GestureDetector(
+                onTap: () {
+                  if (activeMenu.activeSubMenuZoomCamera) {
+                    activeMenu = Menus.zoomImage;
+                  } else {
+                    activeMenu = Menus.zoomCamera;
+                  }
+                  setState(() {});
+                },
+                child: SvgPicture.asset(
+                  AppSvgPath.iconAdjust,
+                  width: 72.w,
+                  height: 72.w,
+                ),
+              ),
+              SizedBox(height: 138.w),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 72.w),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //
+                //
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      activeMenu = Menus.zoomCamera;
+                    });
+                  },
+                  child: SvgPicture.asset(
+                    activeMenu.activeSubMenuZoomCamera ? AppSvgPath.btnSubMenuCameraActive : AppSvgPath.btnSubMenuCamera,
+                    width: 179.w,
+                    height: 48.w,
+                  ),
+                ),
+                SizedBox(height: 138.w),
+
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      activeMenu = Menus.zoomImage;
+                    });
+                  },
+                  child: SvgPicture.asset(
+                    activeMenu.activeSubMenuZoomImage ? AppSvgPath.btnSubMenuZoomPictureActive : AppSvgPath.btnSubMenuZoomPicture,
+                    height: 48.w,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 100.w,
+            left: 0,
+            right: 0,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //
+                SvgPicture.asset(
+                  AppSvgPath.iconZoomOut,
+                  width: 72.w,
+                  height: 72.h,
+                ),
+                Expanded(
+                    child: Slider(
+                  inactiveColor: const Color(0xff1C2129),
+                  activeColor: const Color(0xff1C2129),
+                  thumbColor: const Color(0xff1C2129),
+                  value: activeMenu.activeSubMenuZoomCamera ? zoomCameraValue : zoomImageValue,
+                  onChanged: (value) async {
+                    if (activeMenu.activeSubMenuZoomCamera) {
+                      zoomCameraValue = value;
+                      final zoomLevel = zoomCameraValue * (zoomMaxLevel - zoomMinLevel) + zoomMinLevel;
+                      controller?.setZoomLevel(zoomLevel);
+                    } else {
+                      zoomImageValue = value;
+                      final calculatedW = zoomImageValue * (1.sw - 500.w) + 500.w;
+                      w = calculatedW;
+                      h = calculatedW;
+                    }
+                    setState(() {});
+                  },
+                )),
+                SvgPicture.asset(
+                  AppSvgPath.iconZoomIn,
+                  width: 72.w,
+                  height: 72.h,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
