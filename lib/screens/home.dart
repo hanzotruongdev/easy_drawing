@@ -61,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
   _buildListCat() {
     final List<String> keys = appSamplePath.keys.toList();
     return ListView.builder(
+      shrinkWrap: true,
       itemCount: keys.length,
       itemBuilder: (context, index) => _buildCat(keys[index]),
     );
@@ -92,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
             right: 0,
             height: 486.w,
             child: ListView.builder(
+              shrinkWrap: true,
               padding: EdgeInsets.symmetric(horizontal: 50.w),
               itemCount: listItem!.length,
               scrollDirection: Axis.horizontal,

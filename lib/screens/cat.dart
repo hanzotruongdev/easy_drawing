@@ -97,11 +97,14 @@ class _CatScreenState extends State<CatScreen> {
             Positioned(
               top: 27.w,
               left: 40.w,
-              child: Image.asset(
-                da.path,
-                height: 501.w,
-                width: 501.w,
-                fit: BoxFit.cover,
+              child: Container(
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(48.w)),
+                child: Image.asset(
+                  da.path,
+                  height: 501.w,
+                  width: 501.w,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             //star
