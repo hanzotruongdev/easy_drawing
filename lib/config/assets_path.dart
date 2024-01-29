@@ -44,8 +44,11 @@ class AppSvgPath {
 
   static const btnHelp = '$_folderPath/btn_help.svg';
   static const btnMenuOpacity = '$_folderPath/btn_menu_opacity.svg';
+  static const btnMenuOpacityActive = '$_folderPath/btn_menu_opacity_active.svg';
   static const btnMenuCamera = '$_folderPath/btn_menu_camera.svg';
+  static const btnMenuCameraActive = '$_folderPath/btn_menu_camera_active.svg';
   static const btnMenuZoom = '$_folderPath/btn_menu_zoom.svg';
+  static const btnMenuZoomActive = '$_folderPath/btn_menu_zoom_active.svg';
   static const btnRecording = '$_folderPath/btn_recording.svg';
   static const btnCapture = '$_folderPath/btn_capture.svg';
 
@@ -91,4 +94,55 @@ Map<String, List> appSamplePath = {
     DrawAsset(name: 'sample1.png'),
     DrawAsset(name: 'sample1.png'),
   ],
+  "350x350": [
+    DrawAsset(name: '350x350/2023_12_22_09_33_IMG_2928-removebg-preview 3.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2929-removebg-preview 2.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2930.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2931-removebg-preview 2.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2932.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2933.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2934.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2936.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2937.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2938.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2939.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2942.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_34_IMG_2943.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_35_IMG_2944.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_35_IMG_2945.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_35_IMG_2946.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_35_IMG_2948.png'),
+    DrawAsset(name: '350x350/2023_12_22_09_35_IMG_2949.png'),
+    DrawAsset(name: '350x350/Vector.png'),
+  ],
+  "700x700": [
+    DrawAsset(name: '700x700/2023_12_22_09_33_IMG_2928-removebg-preview 2.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2929-removebg-preview 1.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2930.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2931-removebg-preview 1.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2932.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2933.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2934.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2936.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2937.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2938.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2939.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2942.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_34_IMG_2943.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_35_IMG_2944.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_35_IMG_2945.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_35_IMG_2946.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_35_IMG_2948.png'),
+    DrawAsset(name: '700x700/2023_12_22_09_35_IMG_2949.png'),
+    DrawAsset(name: '700x700/Vector.png'),
+  ],
+  "test": [
+    DrawAsset(name: '2023_12_22_09_33_IMG_2928-removebg-preview 2.png'),
+    DrawAsset(name: '2023_12_22_09_34_IMG_2929-removebg-preview 1.png'),
+    DrawAsset(name: '2023_12_22_09_34_IMG_2931-removebg-preview 1.png'),
+    DrawAsset(name: '2023_12_22_09_34_IMG_2934.png'),
+    DrawAsset(name: '2023_12_22_09_34_IMG_2936.png'),
+    DrawAsset(name: '2023_12_22_09_34_IMG_2937.png'),
+    DrawAsset(name: 'Vector.png'),
+  ]
 };

@@ -59,20 +59,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildListCat() {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ...appSamplePath.keys.map((e) {
-            return _buildCat(e);
-          })
-        ],
-      ),
+    final List<String> keys = appSamplePath.keys.toList();
+    return ListView.builder(
+      itemCount: keys.length,
+      itemBuilder: (context, index) => _buildCat(keys[index]),
     );
   }
 
   _buildCat(name) {
     final listItem = appSamplePath[name];
     return Container(
+      key: Key(name),
       width: 1146.w,
       height: 687.w,
       margin: EdgeInsets.only(bottom: 48.w),
@@ -132,8 +129,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _buildCatItem(DrawAsset da) {
     return InkWell(
+      key: Key(da.name + da.path),
       onTap: () => AppPopups.showPopupItemDetail(context, da),
-      child: Container(
+      child: SizedBox(
         width: 390.w,
         height: 474.w,
         child: Stack(
@@ -144,10 +142,13 @@ class _HomeScreenState extends State<HomeScreen> {
             Positioned(
               top: 16.w,
               left: 16.w,
-              child: Image.asset(
-                da.path,
-                height: 360.w,
-                width: 360.w,
+              child: Container(
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(48.w)),
+                child: Image.asset(
+                  da.path,
+                  height: 360.w,
+                  width: 360.w,
+                ),
               ),
             ),
             //star

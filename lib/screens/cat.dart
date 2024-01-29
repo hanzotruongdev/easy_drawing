@@ -14,7 +14,6 @@ class CatScreen extends StatefulWidget {
 class _CatScreenState extends State<CatScreen> {
   @override
   Widget build(BuildContext context) {
-    final listItem = appSamplePath[widget.name];
     return Scaffold(
       backgroundColor: const Color(0xff262F38),
       body: Container(
@@ -81,7 +80,7 @@ class _CatScreenState extends State<CatScreen> {
           childAspectRatio: 555 / 615,
         ),
         itemCount: listItem!.length,
-        itemBuilder: (c, i) => _buildCatItem(listItem![i]));
+        itemBuilder: (c, i) => _buildCatItem(listItem[i]));
   }
 
   _buildCatItem(DrawAsset da) {

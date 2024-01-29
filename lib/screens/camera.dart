@@ -43,7 +43,7 @@ class _CameraScreenState extends State<CameraScreen> {
   // default off flash
   bool flash = false;
   Menus activeMenu = Menus.none;
-  double opacityValue = 0.5;
+  double opacityValue = 0.85;
   double zoomImageValue = 0.5;
   double zoomCameraValue = 0;
   bool recording = false;
@@ -176,7 +176,19 @@ class _CameraScreenState extends State<CameraScreen> {
       height: double.infinity,
       child: Stack(
         children: [
-          Image.asset(widget.draw.path, opacity: AlwaysStoppedAnimation(opacityValue)),
+          Positioned.fill(
+              child: GestureDetector(
+            onPanUpdate: (details) {
+              final newX = x + details.delta.dx;
+              final newY = y + details.delta.dy;
+              // x = (newX > 0 && newX < 1.sw - w) ? newX : x;
+              // y = (newY > 0 && newY < 1.sh - h) ? newY : y;
+              x = newX;
+              y = newY;
+              setState(() {});
+            },
+            child: FittedBox(fit: BoxFit.fill, child: Image.asset(widget.draw.path, opacity: AlwaysStoppedAnimation(opacityValue))),
+          )),
           Positioned(
             bottom: 48.w,
             right: 48.w,
@@ -184,8 +196,10 @@ class _CameraScreenState extends State<CameraScreen> {
               onPanUpdate: (details) {
                 final newX = x + details.delta.dx;
                 final newY = y + details.delta.dy;
-                x = (newX > 0 && newX < 1.sw - w) ? newX : x;
-                y = (newY > 0 && newY < 1.sh - h) ? newY : y;
+                // x = (newX > 0 && newX < 1.sw - w) ? newX : x;
+                // y = (newY > 0 && newY < 1.sh - h) ? newY : y;
+                x = newX;
+                y = newY;
                 setState(() {});
               },
               child: SvgPicture.asset(
@@ -267,7 +281,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   child: SvgPicture.asset(
                     width: 240.w,
                     height: 240.w,
-                    activeMenu.activeMenuOpacity ? AppSvgPath.btnMenuOpacity : AppSvgPath.btnMenuOpacity,
+                    activeMenu.activeMenuOpacity ? AppSvgPath.btnMenuOpacityActive : AppSvgPath.btnMenuOpacity,
                   ),
                 ),
                 GestureDetector(
@@ -283,7 +297,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   child: SvgPicture.asset(
                     width: 240.w,
                     height: 240.w,
-                    activeMenu.activeMenuCamera ? AppSvgPath.btnMenuCamera : AppSvgPath.btnMenuCamera,
+                    activeMenu.activeMenuCamera ? AppSvgPath.btnMenuCameraActive : AppSvgPath.btnMenuCamera,
                   ),
                 ),
                 GestureDetector(
@@ -295,7 +309,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   child: SvgPicture.asset(
                     width: 240.w,
                     height: 240.w,
-                    activeMenu.activeMenuZoom ? AppSvgPath.btnMenuZoom : AppSvgPath.btnMenuZoom,
+                    activeMenu.activeMenuZoom ? AppSvgPath.btnMenuZoomActive : AppSvgPath.btnMenuZoom,
                   ),
                 ),
               ],
@@ -311,7 +325,7 @@ class _CameraScreenState extends State<CameraScreen> {
       SvgPicture.asset(
         AppSvgPath.btnSubMenuOpacity,
         width: 179.w,
-        height: 72.w,
+        height: 48.w,
       ),
       Row(
         children: [
@@ -362,8 +376,8 @@ class _CameraScreenState extends State<CameraScreen> {
                 },
                 child: SvgPicture.asset(
                   activeMenu.activeSubMenuPicture ? AppSvgPath.btnSubMenuCameraActive : AppSvgPath.btnSubMenuCamera,
+                  height: 40.w,
                   width: 179.w,
-                  height: 48.w,
                 ),
               ),
               SizedBox(height: 138.w),
@@ -376,7 +390,8 @@ class _CameraScreenState extends State<CameraScreen> {
                 },
                 child: SvgPicture.asset(
                   activeMenu.activeSubMenuVideo ? AppSvgPath.btnSubMenuVideoActive : AppSvgPath.btnSubMenuVideo,
-                  height: 48.w,
+                  height: 40.w,
+                  width: 179.w,
                 ),
               ),
             ],
@@ -463,7 +478,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   child: SvgPicture.asset(
                     activeMenu.activeSubMenuZoomCamera ? AppSvgPath.btnSubMenuCameraActive : AppSvgPath.btnSubMenuCamera,
                     width: 179.w,
-                    height: 48.w,
+                    height: 40.w,
                   ),
                 ),
                 SizedBox(height: 138.w),
@@ -476,7 +491,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   },
                   child: SvgPicture.asset(
                     activeMenu.activeSubMenuZoomImage ? AppSvgPath.btnSubMenuZoomPictureActive : AppSvgPath.btnSubMenuZoomPicture,
-                    height: 48.w,
+                    height: 40.w,
                   ),
                 ),
               ],
@@ -509,9 +524,13 @@ class _CameraScreenState extends State<CameraScreen> {
                       controller?.setZoomLevel(zoomLevel);
                     } else {
                       zoomImageValue = value;
-                      final calculatedW = zoomImageValue * (1.sw - 500.w) + 500.w;
+                      final calculatedW = zoomImageValue * (2.sw - 500.w) + 500.w;
+                      x = x - (calculatedW - w) / 2;
+                      y = y - (calculatedW - h) / 2;
                       w = calculatedW;
                       h = calculatedW;
+
+                      print('new x: $x, new y: $y, new width: $w, new height: $h');
                     }
                     setState(() {});
                   },

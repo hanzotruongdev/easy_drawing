@@ -67,10 +67,13 @@ class AppPopups {
                 top: 120.w,
                 left: 120.w,
                 right: 120.w,
-                child: Image.asset(
-                  da.path,
-                  width: 1050.w,
-                  height: 1050.w,
+                child: Container(
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(120.w)),
+                  child: Image.asset(
+                    da.path,
+                    width: 1050.w,
+                    height: 1050.w,
+                  ),
                 ),
               ),
 
@@ -107,9 +110,7 @@ class AppPopups {
                 right: 0,
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                      c, MaterialPageRoute(builder: (context) => CameraScreen(draw: da))
-                    );
+                    Navigator.push(c, MaterialPageRoute(builder: (context) => CameraScreen(draw: da)));
                   },
                   child: Container(
                     width: double.infinity,

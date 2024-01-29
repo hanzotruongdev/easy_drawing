@@ -22,7 +22,7 @@ class _IntroScreenState extends State<IntroScreen> {
         body: Container(
             width: 1.sw,
             height: 1.sh,
-            padding: EdgeInsets.symmetric(horizontal: 72.w),
+            padding: EdgeInsets.symmetric(horizontal: 72.h),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -37,7 +37,7 @@ class _IntroScreenState extends State<IntroScreen> {
             child: Column(
               children: [
                 _buildCloseBtn(),
-                SizedBox(height: 48.w),
+                SizedBox(height: 48.h),
                 _buildIntroImage(),
                 Expanded(
                   child: _buildIntroText(),
@@ -45,7 +45,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 Column(
                   children: [
                     _buildContinueButton(),
-                    SizedBox(height: 48.w),
+                    SizedBox(height: 48.h),
                     _buildLink(),
                   ],
                 )
@@ -57,14 +57,14 @@ class _IntroScreenState extends State<IntroScreen> {
     return SafeArea(
       bottom: false,
       child: (step != 3)
-          ? SizedBox(height: 96.w)
+          ? SizedBox(height: 96.h)
           : Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Image.asset(
                   AppImagePath.iconClose,
-                  width: 96.w,
-                  height: 96.w,
+                  width: 96.h,
+                  height: 96.h,
                 )
               ],
             ),
@@ -74,8 +74,8 @@ class _IntroScreenState extends State<IntroScreen> {
   _buildIntroImage() {
     return Container(
       alignment: Alignment.center,
-      height: 1146.w,
-      width: 1146.w,
+      height: 1146.h,
+      width: 1146.h,
       child: Image.asset(AppImagePath.listIntroImgs[step]),
     );
   }
@@ -89,27 +89,27 @@ class _IntroScreenState extends State<IntroScreen> {
             ...[0, 1, 2, 3].map((e) {
               if (step != e) {
                 return Container(
-                  height: 24.w,
-                  width: 24.w,
-                  margin: EdgeInsets.symmetric(horizontal: 6.w),
+                  height: 24.h,
+                  width: 24.h,
+                  margin: EdgeInsets.symmetric(horizontal: 6.h),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(24.w),
+                    borderRadius: BorderRadius.circular(24.h),
                   ),
                 );
               }
               return Container(
-                margin: EdgeInsets.symmetric(horizontal: 6.w),
+                margin: EdgeInsets.symmetric(horizontal: 6.h),
                 child: Image.asset(
                   AppImagePath.iconSelectedGradient,
-                  width: 72.w,
-                  height: 24.w,
+                  width: 72.h,
+                  height: 24.h,
                 ),
               );
             }).toList()
           ],
         ),
-        SizedBox(height: 48.w),
+        SizedBox(height: 48.h),
         GestureDetector(
           onTap: () {
             if (step < 3) {
@@ -125,8 +125,8 @@ class _IntroScreenState extends State<IntroScreen> {
           },
           child: Image.asset(
             AppImagePath.btnContinue,
-            width: 1146.w,
-            height: 192.w,
+            width: 1146.h,
+            height: 192.h,
           ),
         )
       ],
@@ -144,7 +144,7 @@ class _IntroScreenState extends State<IntroScreen> {
       children: [
         SvgPicture.asset(
           AppSvgPath.listIntroTexts[3],
-          height: 283.w,
+          height: 283.h,
         ),
         Column(
           children: [
@@ -167,11 +167,11 @@ class _IntroScreenState extends State<IntroScreen> {
           ],
         ),
         Container(
-          height: 192.w,
-          padding: EdgeInsets.symmetric(horizontal: 48.w),
+          height: 192.h,
+          padding: EdgeInsets.symmetric(horizontal: 48.h),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.white, width: 1),
-            borderRadius: BorderRadius.circular(96.w),
+            borderRadius: BorderRadius.circular(96.h),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,8 +206,8 @@ class _IntroScreenState extends State<IntroScreen> {
                 },
                 child: Image.asset(
                   freeTrial ? AppImagePath.btnSwitchOn : AppImagePath.btnSwitchOff,
-                  height: 96.w,
-                  width: 192.w,
+                  height: 96.h,
+                  width: 192.h,
                 ),
               )
             ],
@@ -221,7 +221,7 @@ class _IntroScreenState extends State<IntroScreen> {
     return SafeArea(
       top: false,
       child: (step < 3)
-          ? SizedBox(height: 72.w)
+          ? SizedBox(height: 72.h)
           : GestureDetector(
               onTap: () {},
               child: Text(
