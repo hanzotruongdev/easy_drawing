@@ -1,3 +1,4 @@
+import 'package:ar_drawing/components/popup.dart';
 import 'package:ar_drawing/config/assets_path.dart';
 import 'package:ar_drawing/main.dart';
 import 'package:camera/camera.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 
 class CameraScreen extends StatefulWidget {
   final DrawAsset draw;
@@ -58,6 +60,7 @@ class _CameraScreenState extends State<CameraScreen> {
       if (!mounted) {
         return;
       }
+      controller!.setFlashMode(FlashMode.off);
       controller!.getMaxZoomLevel().then((value) => zoomMaxLevel = value);
       controller!.getMinZoomLevel().then((value) => zoomMinLevel = value);
 
@@ -405,12 +408,39 @@ class _CameraScreenState extends State<CameraScreen> {
                 onTap: () async {
                   if (activeMenu.activeSubMenuPicture) {
                     // take a pick ture
-                    controller!.takePicture();
+                    final file = await controller?.takePicture();
+                    if (file == null) return;
+                    // ignore: use_build_context_synchronously
+                    final res = await AppPopups.showPopupPreview(context, file);
+                    if (res) {
+                      final saveRes = await GallerySaver.saveImage(file.path);
+                      if (saveRes != null && saveRes) {
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Image saved!"),
+                        ));
+                      }
+                    }
                   } else {
                     // start/ stop recording
                     if (recording) {
-                      await controller?.stopVideoRecording();
+                      final file = await controller?.stopVideoRecording();
                       recording = false;
+
+                      if (file == null) return;
+
+                      // ignore: use_build_context_synchronously
+                      final res = await AppPopups.showPopupPreview(context, file, video: true);
+                      
+                      if (res) {
+                        final saveRes = await GallerySaver.saveVideo(file.path);
+                        if (saveRes != null && saveRes) {
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text("Video saved!"),
+                          ));
+                        }
+                      }
                     } else {
                       await controller?.startVideoRecording();
                       recording = true;

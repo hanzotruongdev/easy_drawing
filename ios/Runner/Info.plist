@@ -49,5 +49,7 @@
 	<string>Use camera to record drawing video</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Use microphone to record drawing video</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To save your captured photos or recorded video to gallery</string>
 </dict>
 </plist>
