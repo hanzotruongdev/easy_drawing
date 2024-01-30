@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ar_drawing/components/popup.dart';
 import 'package:ar_drawing/config/assets_path.dart';
 import 'package:ar_drawing/main.dart';
@@ -9,8 +11,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 
 class CameraScreen extends StatefulWidget {
-  final DrawAsset draw;
-  const CameraScreen({super.key, required this.draw});
+  final DrawAsset? draw;
+  final File? imageFile;
+  const CameraScreen({super.key, this.draw, this.imageFile});
 
   @override
   State<CameraScreen> createState() => _CameraScreenState();
@@ -190,7 +193,11 @@ class _CameraScreenState extends State<CameraScreen> {
               y = newY;
               setState(() {});
             },
-            child: FittedBox(fit: BoxFit.fill, child: Image.asset(widget.draw.path, opacity: AlwaysStoppedAnimation(opacityValue))),
+            child: FittedBox(
+                fit: BoxFit.contain,
+                child: widget.imageFile != null
+                    ? Image.file(widget.imageFile!, opacity: AlwaysStoppedAnimation(opacityValue))
+                    : Image.asset(widget.draw!.path, opacity: AlwaysStoppedAnimation(opacityValue))),
           )),
           Positioned(
             bottom: 48.w,
@@ -373,6 +380,12 @@ class _CameraScreenState extends State<CameraScreen> {
               //
               GestureDetector(
                 onTap: () {
+                  if (recording) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Stop video recording to take photo"),
+                    ));
+                    return;
+                  }
                   setState(() {
                     activeMenu = Menus.picture;
                   });
@@ -431,7 +444,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
                       // ignore: use_build_context_synchronously
                       final res = await AppPopups.showPopupPreview(context, file, video: true);
-                      
+
                       if (res) {
                         final saveRes = await GallerySaver.saveVideo(file.path);
                         if (saveRes != null && saveRes) {

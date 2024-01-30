@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:ar_drawing/components/popup.dart';
 import 'package:ar_drawing/config/assets_path.dart';
+import 'package:ar_drawing/screens/camera.dart';
 import 'package:ar_drawing/screens/cat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -49,7 +53,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            Image.asset(AppImagePath.btnUpload, width: double.infinity),
+            GestureDetector(
+              onTap: () async {
+                final ImagePicker picker = ImagePicker();
+                final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+                if (image != null) {
+                  // ignore: use_build_context_synchronously
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CameraScreen(
+                                imageFile: File(image.path),
+                              )));
+                } else {
+                  // User canceled the picker
+                }
+              },
+              child: Image.asset(AppImagePath.btnUpload, width: double.infinity),
+            ),
             SizedBox(height: 96.w),
             Expanded(child: _buildListCat())
           ],
