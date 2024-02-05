@@ -75,6 +75,20 @@ flutter:
     - assets/samples/
     - assets/samples/350x350/
     - assets/samples/700x700/
+    - assets/samples/Aesthetics/
+    - assets/samples/Anatomy/
+    - assets/samples/Animals/
+    - assets/samples/Anime/
+    - assets/samples/Architecture/
+    - assets/samples/Basic/
+    - assets/samples/Cars/
+    - assets/samples/Cute/
+    - assets/samples/Food/
+    - assets/samples/For Kids/
+    - assets/samples/Nature/
+    - assets/samples/Objects/
+    - assets/samples/People/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
