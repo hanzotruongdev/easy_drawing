@@ -73,8 +73,6 @@ flutter:
     - assets/images/
     - assets/svgs/
     - assets/samples/
-    - assets/samples/350x350/
-    - assets/samples/700x700/
     - assets/samples/Aesthetics/
     - assets/samples/Anatomy/
     - assets/samples/Animals/
